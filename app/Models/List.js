@@ -1,10 +1,64 @@
 import { generateId } from "../utils.js";
 
+
+
+
+
+
+
+
+
+
 export default class List {
   constructor(data) {
-    //TODO Your constructor takes in a data object that should have the properties you need to create your list here is a freebie, it will set the id its provided, or if that is undefined it will create a new one (this is an alternative to object destructuring)
+
     this.id = data.id || generateId();
+    this.name = data.name;
+
+    /**@type {String[]} */
+    this.tasks = data.tasks || [];
+
+    //NOTE make this part work too
+    this.color = data.color ||
+
+    console.log(this.color)
+  
+
   }
-  //Be sure to add the methods needed to create the view template for this model
-  //For starting out, your tasks may be strings alone, but later you may wish to turn them into full objects, that will be up to you
+  get Template(){
+    return /*html*/ `
+    <div class="col-12 col-md-3 my-2 mx-auto mx-md-1">
+    <div class="card shadow">
+      <div class="card-header ${this.color} text-center d-flex flex-column"> <!--TODO MAKE THIS PART WORK TOO -->
+        <i class="fas fa-times text-danger pointer align-self-end action"
+          onclick="app.listController.removeList('${this.id}')"></i>    
+        <h2>${this.name}</h2>
+      </div>
+      <div class="card-body d-flex flex-column">
+        <ul class="pl-3">
+          ${this.taskTemplate}
+        </ul>
+        <form onsubmit="app.listController.addTask(event, '${this.id}')">
+          <div class="form-group d-flex">
+            <input type="text" class="form-control" name="task" id="task" placeholder="Add Task" required>
+            <button type="submit" class="btn btn-outline-success"><i class="fas fa-plus "></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  `  
+  }
+  get taskTemplate(){
+    let template = ""
+    this.tasks.forEach((task, index) => {
+      template += /*html*/ `
+      <li>
+      ${task} 
+           <i class="far fa-trash-alt text-danger pointer" onclick="app.listController.removeTask('${this.id}', ${index})"></i>
+      </li>
+      `
+    })
+    return template;
+  }
 }
