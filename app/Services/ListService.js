@@ -1,12 +1,25 @@
 import List from "../Models/List.js";
-
-//Public
+import _store from "../store.js";
 class ListService {
-  //TODO  Here is where we handle all of our business logic,
-  //given the information you need in the controller,
-  //what methods will you need to do when this class is first 'constructed'?
-  //NOTE You will need this code to persist your data into local storage, be sure to call the store method to save after each change
+addList(rawList){
+  let list = new List(rawList);
+  _store.State.lists.push(list);
+  _store.saveState();
 }
-
+addTask(task, listId){
+  let list = _store.State.lists.find(l => l.id == listId)
+  list.tasks.push(task);
+  _store.saveState();
+}
+removeList(listId){
+  _store.State.lists = _store.State.lists.filter(l => l.id != listId)
+  _store.saveState();
+}
+removeTask(listId, index){
+  let list = _store.State.lists.find(l => l.id == listId)
+  list.tasks.splice(index, 1)
+  _store.saveState();
+}
+}
 const SERVICE = new ListService();
 export default SERVICE;
