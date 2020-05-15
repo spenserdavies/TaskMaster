@@ -1,0 +1,19 @@
+body{
+  min-height: 100vh;
+  flex-direction: column;
+  display: flex;
+}
+
+header{
+  font-family: 'Amatic SC', cursive;
+  font-size: 60pt;
+  text-shadow: 1px 1px white;
+}
+main{
+  flex-grow: 1;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.pointer {
+  cursor: pointer;
+}
