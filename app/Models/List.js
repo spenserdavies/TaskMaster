@@ -16,21 +16,15 @@ export default class List {
     this.name = data.name;
 
     /**@type {String[]} */
-    this.tasks = data.tasks || [];
-
-    //NOTE make this part work too
-    this.color = data.color ||
-
-    console.log(this.color)
-  
-
+    this.tasks = data.tasks || [];    
+    this.color = data.color 
   }
   get Template(){
     return /*html*/ `
     <div class="col-12 col-md-3 my-2 mx-auto mx-md-1">
     <div class="card shadow">
-      <div class="card-header ${this.color} text-center d-flex flex-column"> <!--TODO MAKE THIS PART WORK TOO -->
-        <i class="fas fa-times text-danger pointer align-self-end action"
+      <div class="card-header ${this.color} text-center d-flex flex-column">
+        <i class="fas fa-times text-light pointer align-self-end"
           onclick="app.listController.removeList('${this.id}')"></i>    
         <h2>${this.name}</h2>
       </div>
